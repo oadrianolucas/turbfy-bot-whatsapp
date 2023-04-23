@@ -8,10 +8,14 @@ export const initialStage = {
     let message;
     const venombot = await VenomBot.getInstance();
 
-    if (currentHour < 8 || currentHour >= 17) {
-      message = `Olá! Nosso atendimento está fora do ar no momento.
-Por favor, retorne entre 🕗 08:00 e 17:00.
-Agradecemos pela compreensão!`;
+    if (currentHour < 8 || currentHour >= 23) {
+      message = `Olá, como vai?
+
+Nosso atendimento está fora do ar no momento. 😓
+
+Por favor, retorne entre 08:00 e 17:00. 🕗 
+
+Agradecemos pela compreensão! 😃`;
     } else {
       storage[from].stage = STAGES.MENU;
       message = `Olá, como você está? 😁
@@ -24,8 +28,7 @@ Como posso te ajudar hoje?
 2️⃣ - Materiais Gráficos.
 3️⃣ - Sistemas.
 4️⃣ - Status do Projeto/Pedido.
-0️⃣ - Falar com um atendente humano.
-`;
+0️⃣ - Falar com um atendente humano.`;
     }
     await venombot.sendText({ to: from, message });
   },

@@ -11,13 +11,10 @@ export const stageFour = {
       endsIn: new Date().setSeconds(60),
     };
 
-    const itens = storage[from].itens;
-    const desserts = itens.map((item) => item.description).join(", ");
-    const total = storage[from].itens.length;
-
-    const msg = `🙌 Agradecemos por compartilhar as informações sobre
-sua empresa ou projeto conosco! Em breve, nossa equipe entrará em
-contato para oferecer a melhor solução para suas necessidades.
+    const msg = `🙌 Obrigado por compartilhar informações conosco!
+    
+Em breve, nossa equipe entrará em contato para ajudar com suas necessidades.
+    
 Fique atento ao seu WhatsApp! 📲`;
 
     await VenomBot.getInstance().sendText({ to: from, message: msg });

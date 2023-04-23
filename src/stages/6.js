@@ -1,27 +1,28 @@
 import { VenomBot } from "../venom.js";
-import { menu_digital } from "../menu_digital.js";
+import { menu_grafica } from "../menu_grafica.js";
 import { storage } from "../storage.js";
 import { STAGES } from "./index.js";
+import { outros_grafica } from "./outros_grafica.js";
 
-export const stageTwo = {
+export const stageSix = {
   async exec(params) {
     const message = params.message.trim();
-    const isMsgValid = /[1|2|3|4|5|#|*]/.test(message);
+    const isMsgValid = /[1|2|3|4|5|✅|❌|/]/.test(message);
 
     let msg =
       "❌ *Digite uma opção válida, por favor.* \n⚠️ ```APENAS UMA OPÇÃO POR VEZ``` ⚠️";
 
     if (isMsgValid) {
-      if (["1", "2"].includes(message)) {
+      if (["✅", "❌"].includes(message)) {
         const option = options[message]();
         msg = option.message;
         storage[params.from].stage = option.nextStage;
       } else {
         msg =
-          `🖌 *${menu_digital[message].title}* \n\n` +
+          `🖌 *${menu_grafica[message].title}* \n` +
           "```Está correto sua escolha?``` \n" +
-          "\n-----------------------------------\n1 - ✅ Confirmar Escolha! \n2 - ❌ Voltar para  inícial.";
-        storage[params.from].itens.push(menu_digital[message]);
+          "\n-----------------------------------\n✅ - Confirmar Escolha! \n❌ - Voltar para  inícial.";
+        storage[params.from].itens.push(menu_grafica[message]);
       }
 
       if (storage[params.from].stage === STAGES.INICIAL) {
@@ -34,18 +35,19 @@ export const stageTwo = {
 };
 
 const options = {
-  "*": () => {
-    const message = "Atendimento *CANCELADO* com sucesso. \n Volte Sempre!";
+  "❌": () => {
+    const message =
+      "🚫 Atendimento *CANCELADO* com sucesso. \nVolte Sempre! 👋";
 
     return {
       message,
       nextStage: STAGES.INICIAL,
     };
   },
-  "#": () => {
+  "✅": () => {
     const message =
       "🧙 Agora, informe o seu *NOME COMPLETO*. \n ( ```Ex: José Augusto...``` ) \n\n " +
-      "\n-----------------------------------\n[ * ] - Voltar para menu inícial.";
+      "\n-----------------------------------\n* - Voltar para  inícial.";
 
     return {
       message,

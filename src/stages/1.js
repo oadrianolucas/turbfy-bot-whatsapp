@@ -1,7 +1,7 @@
 import { VenomBot } from "../venom.js";
-import { menu } from "../menu.js";
+import { menu_digital } from "../menu_digital.js";
+import { menu_grafica } from "../menu_grafica.js";
 import { storage } from "../storage.js";
-import { graphicServices } from "./graphicServices.js";
 import { initialStage } from "./0.js";
 import { STAGES } from "./index.js";
 
@@ -10,7 +10,7 @@ export const stageOne = {
     const message = params.message.trim();
     const isMsgValid = /[0|1|2]/.test(message);
 
-    let msg = `❌ Por favor, insira uma opção válida, apenas uma de cada vez.`;
+    let msg = `🤷 Por favor, insira uma opção válida, apenas uma de cada vez.`;
 
     if (isMsgValid) {
       const option = options[Number(message)];
@@ -36,29 +36,28 @@ export const stageOne = {
 
 const options = {
   1: () => {
-    let message = "Estratégias de Marketing Digital 🌐 \n\n";
-    let footerMsg =
-      "Escolha uma das opções a cima 👆 para agilizar o seu atendimento.";
+    let message =
+      "🌐 Estratégias de Marketing Digital. \n\n Escolha uma das opções a baixo 👇: \n\n";
 
-    Object.keys(menu).forEach((value) => {
-      message += `${numbers[value]} - _${menu[value].description}_ \n`;
+    Object.keys(menu_digital).forEach((value) => {
+      message += `${numbers[value]} - _${menu_digital[value].title}_ \n`;
     });
 
     return {
       message,
-      nextStage: STAGES.CARRINHO,
-      footerMsg,
+      nextStage: STAGES.DIGITAL,
     };
   },
   2: () => {
-    const message =
-      "\n-----------------------------------\n1️⃣ - ```FAZER PEDIDO``` \n0️⃣ - ```FALAR COM ATENDENTE```\n\n" +
-      graphicServices +
-      "\n-----------------------------------\n1️⃣ - ```FAZER PEDIDO``` \n0️⃣ - ```FALAR COM ATENDENTE``` ";
+    let message =
+      "✨ Produtos Gráficos. \n\n Escolha uma das opções a baixo 👇: \n\n";
 
+    Object.keys(menu_grafica).forEach((value) => {
+      message += `${numbers[value]} - _${menu_grafica[value].title}_ \n`;
+    });
     return {
       message,
-      nextStage: null,
+      nextStage: STAGES.GRAFICA,
     };
   },
   0: () => {
